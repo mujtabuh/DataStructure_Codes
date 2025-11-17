@@ -1,10 +1,8 @@
 #include <iostream>
-#include <stdexcept> // For underflow_error
+#include <stdexcept> 
 
 using namespace std;
 
-// --- Node Class ---
-// As defined in the lecture slides, with accessors and mutators (setters).
 class Node {
 private:
     int element;
@@ -12,13 +10,11 @@ private:
     Node* prev_node;
 
 public:
-    // Constructor (implementation as per slide)
+   
     Node(int e = 0, Node* n = nullptr, Node* p = nullptr)
         : element(e), next_node(n), prev_node(p) {
-        // empty constructor
     };
 
-    // Accessors (as per slide)
     int retrieve() const {
         return element;
     }
@@ -27,7 +23,7 @@ public:
         return next_node;
     }
 
-    Node* previous() const { // Named 'previous' as per slide
+    Node* previous() const { 
         return prev_node;
     }
     void setnext(Node* n) {
@@ -42,66 +38,50 @@ public:
         prev_node = n;
     }
 };
-
-// --- DoublyList Class ---
-// As defined in the lecture slides.
-// Note: This class only has 'list_head', no 'list_tail'.
+.
 class DoublyList {
 private:
     Node* list_head;
 
 public:
-    // Constructor (as per slide)
     DoublyList() : list_head(nullptr) {
-        // empty constructor
+        
     }
 
-    // Destructor (as per slide)
     ~DoublyList() {
         while (!empty()) {
             pop_front();
         }
     }
 
-    // Accessor: head (as per slide)
     Node* head() const {
         return list_head;
     }
 
-    // Accessor: empty (as per slide)
     bool empty() const {
       return (list_head == nullptr);
     }
 
-    // Accessor: front (as per slide)
     int front() const {
         if (empty()) {
-            // Using 'throw underflow_error' for standard exception
             throw underflow_error("Underflow: List is empty");
         }
         else {
             return head()->retrieve();
         }
     }
-
-    // Accessor: end (as per slide)
-    // This is an O(n) operation because we have no tail pointer.
     int end() const {
         if (empty()) {
             throw underflow_error("Underflow: List is empty");
         }
 
         Node* ptr;
-        // Loop to find the last node
+       
         for (ptr = head(); ptr->next() != nullptr; ptr = ptr->next()) {
-            // This loop body is intentionally empty.
-            // It stops when 'ptr' points to the last node.
+         
         }
         return ptr->retrieve();
     }
-
-    // Accessor: size (as per slide)
-    // This is an O(n) operation.
     int size() const {
         int count = 0;
         for (Node* ptr = head(); ptr != nullptr; ptr = ptr->next()) {
@@ -110,8 +90,6 @@ public:
         return node_count;
     }
 
-    // Accessor: count (as per slide)
-    // This is an O(n) operation.
     int count(int n) const {
         int node_count = 0;
         for (Node* ptr = head(); ptr != nullptr; ptr = ptr->next()) {
